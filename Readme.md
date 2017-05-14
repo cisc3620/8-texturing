@@ -1,10 +1,8 @@
 # Lab 8: Bump mapping
 
-This branch shows a rotating cube with each side a different color.
-
 The branch "texture" shows the cube rotating with a bunny image textured onto each side. Access by `git checkout texture`. Please note that absolute paths are no longer required for the texture.
 
-The branch "bump" gives you a starting point for the hw that will still give you the same rotating bunny. In github you can use the "compare across branches" option to show the changes that have been made to main.cpp:
+The branch "bump" gives you a starting point for the hw that will initially show a blank gray screen. In github you can use the "compare across branches" option to show the changes that have been made to main.cpp:
 
 * A function for calculating tangents and bitangents
 * Shader variables for tangents and bitangents, along with vertex attribute commands in main
