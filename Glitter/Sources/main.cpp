@@ -60,8 +60,8 @@ const GLchar* vertexSource =
 "{"
 "		 FragPos = vec3(model * vec4(position, 1.0f));"
 
-// TODO: transform tangent, bitangent, position, eyedir, lightdir from model space (given) into camera space
-// TODO: get camerspace normal from tangent and bitangent crossproduct. Construct TBN camerspace-->tangentspace matrix
+// TODO: transform tangent, bitangent, position, eyedir, lightdir into camera space
+// TODO: get cameraspace normal from tangent and bitangent crossproduct. Construct TBN camerspace-->tangentspace matrix
 // TODO: transform eyedir, lightdir from cameraspace to tangentspace
 
 "    TexCoord = texCoord;"
