@@ -46,7 +46,6 @@ const GLchar* vertexSource =
 "layout (location=4) in vec3 bitangent;"
 
 // output data: interpolated for each fragment
-"out vec3 Color;"                 // will pass color along pipeline
 "out vec3 FragPos;"								// position in world space (after model transformation)
 "out vec2 TexCoord;"							// and texture coordinates
 "out vec3 EyeDir_tangentspace;"
@@ -63,14 +62,12 @@ const GLchar* vertexSource =
 // TODO: transform tangent, bitangent, position, eyedir, lightdir into camera space
 // TODO: get cameraspace normal from tangent and bitangent crossproduct. Construct TBN camerspace-->tangentspace matrix
 // TODO: transform eyedir, lightdir from cameraspace to tangentspace
-
 "    TexCoord = texCoord;"
 "    gl_Position = view * model * vec4(position, 1.0);"   // gl_Position is special variable for final position
 "}";
 
 const GLchar* fragmentSource =
 "#version 330 core\n"
-"in vec3 Color;"
 "in vec3 FragPos;"
 "in vec2 TexCoord;"
 "in vec3 EyeDir_tangentspace;"
@@ -88,7 +85,8 @@ const GLchar* fragmentSource =
 		 "vec3 ambientStrength = vec3(0.4, 0.4, 0.4);"
 // TODO: get material diffuse color from textureMap (bunny) and normal from normalMap (bricks)
 // TODO: calculate diffuse, specular and ambient components using tangentspace eyedir and lightdir and diffuse color and normal from textures
-"		 outColor = vec4(diffuse + ambient + specular, 1.0);"
+//"		 outColor = vec4(diffuse + ambient + specular, 1.0);"
+"		outColor = vec4(ambientStrength, 1.0);"	// placeholder so you see something
 "}";
 
 // vertex data
