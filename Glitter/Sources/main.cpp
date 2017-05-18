@@ -46,6 +46,7 @@ const GLchar* vertexSource =
 "layout (location=4) in vec3 bitangent;"
 
 // output data: interpolated for each fragment
+"out vec3 Color;"
 "out vec3 FragPos;"								// position in world space (after model transformation)
 "out vec2 TexCoord;"							// and texture coordinates
 "out vec3 EyeDir_tangentspace;"
@@ -63,11 +64,13 @@ const GLchar* vertexSource =
 // TODO: get cameraspace normal from tangent and bitangent crossproduct. Construct TBN camerspace-->tangentspace matrix
 // TODO: transform eyedir, lightdir from cameraspace to tangentspace
 "    TexCoord = texCoord;"
+"		 Color = bitangent;"
 "    gl_Position = view * model * vec4(position, 1.0);"   // gl_Position is special variable for final position
 "}";
 
 const GLchar* fragmentSource =
 "#version 330 core\n"
+"in vec3 Color;"
 "in vec3 FragPos;"
 "in vec2 TexCoord;"
 "in vec3 EyeDir_tangentspace;"
@@ -86,7 +89,8 @@ const GLchar* fragmentSource =
 // TODO: get material diffuse color from textureMap (bunny) and normal from normalMap (bricks)
 // TODO: calculate diffuse, specular and ambient components using tangentspace eyedir and lightdir and diffuse color and normal from textures
 //"		 outColor = vec4(diffuse + ambient + specular, 1.0);"
-"		outColor = vec4(ambientStrength, 1.0);"	// placeholder so you see something
+//"		outColor = vec4(ambientStrength, 1.0);"	// placeholder so you see something
+"			outColor = vec4(Color, 1.0);"
 "}";
 
 // vertex data
@@ -228,11 +232,11 @@ int main(int argc, char * argv[]) {
 	GLuint tangentbuffer;
 	glGenBuffers(1, &tangentbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, tangentbuffer);
-	glBufferData(GL_ARRAY_BUFFER, tangents.size()*3, tangent_arr, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(tangent_arr), tangent_arr, GL_STATIC_DRAW);
 	GLuint bitangentbuffer;
 	glGenBuffers(1, &bitangentbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, bitangentbuffer);
-	glBufferData(GL_ARRAY_BUFFER, bitangents.size()*3, bitangent_arr, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(bitangent_arr), bitangent_arr, GL_STATIC_DRAW);
   
   // Create and compile the vertex shader
   GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
